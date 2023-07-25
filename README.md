@@ -2,6 +2,7 @@
 
 # ERD
 
-https://teamsparta.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff4c3d784-ce66-4002-b815-b40aad27ad40%2FUntitled.png?table=block&id=e3a3e429-e8f0-499f-81e0-5f865c35b368&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=1910&userId=&cache=v2
+![image](https://github.com/gajigaji04/Kiosk_Project/assets/132813209/9dad5fe1-c355-4b04-a554-9ec8d465fa81)
+
 
 (출처: 스파르타 kiosk 과제 진행용 참고)
