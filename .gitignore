@@ -14,18 +14,3 @@ build/          # 빌드된 파일이나 디렉토리
 .env            # 환경 변수 파일
 config.ini      # 설정 파일
 credentials.json  # 인증 정보 파일
-
-## 파일 무시
-test.txt
-
-## 다음과 같은 확장자는 전체 무시
-*.text
-*.exe
-*.zip
-
-## 폴더 무시
-test/
-
-storeId, image, menuName, price, createdAT
-
-'storeId', 'image', 'menuName', 'price', 'createdAT'
