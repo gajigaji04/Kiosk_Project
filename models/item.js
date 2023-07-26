@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       option_id: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "default_option_id", // option_id에 대한 기본값 설정
       },
       price: {
         type: DataTypes.STRING,
@@ -33,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       amount: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "0", // 기본값 설정: 0
       },
     },
     {
