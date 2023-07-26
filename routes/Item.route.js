@@ -22,14 +22,11 @@ class ProductRouter {
 
     try {
       // 지정된 유형의 제품이 이미 있는지 확인
-      const existingProduct = await Item.findOne({
-        where: { type },
-      });
-
-      if (existingProduct) {
+      const validTypes = ["coffee", "juice", "food"]; // 유효한 유형 추가
+      if (!validTypes.includes(type)) {
         return res
           .status(400)
-          .json({ errorMessage: "이미 해당 타입의 상품이 존재합니다." });
+          .json({ errorMessage: "알맞은 타입을 지정해주세요." });
       }
 
       // 상품 생성

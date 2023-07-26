@@ -6,9 +6,11 @@ class ProductService {
     // Business logic and validation code...
 
     // Check if the product with the specified type already exists
-    const existingProduct = await Item.findOne({ where: { type } });
-    if (existingProduct) {
-      throw new Error("이미 해당 타입의 상품이 존재합니다.");
+    const validTypes = ["coffee", "juice", "food"]; // 유효한 유형 추가
+    if (!validTypes.includes(type)) {
+      return res
+        .status(400)
+        .json({ errorMessage: "알맞은 타입을 지정해주세요." });
     }
 
     // Create the new product
