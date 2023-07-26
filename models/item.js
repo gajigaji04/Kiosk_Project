@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "0", // 기본값 설정: 0
+        // item의 기본 수량(amount)는 0으로 고정 (상품 발주시 amount 증가)
       },
     },
     {
