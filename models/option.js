@@ -1,25 +1,34 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
-  class option extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Option extends Model {
     static associate(models) {
-      // define association here
+      // option : item (1:N)
+      Option.hasMany(models.Item, { foreignKey: "option_Id" });
     }
   }
-  option.init({
-    extrs_price: DataTypes.STRING,
-    shot_price: DataTypes.STRING,
-    hot: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'option',
-  });
-  return option;
+
+  Option.init(
+    {
+      extrs_price: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      shot_price: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      hot: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "option",
+    }
+  );
+
+  return Option;
 };
