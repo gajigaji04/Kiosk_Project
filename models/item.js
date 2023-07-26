@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
     static associate(models) {
       // option : item (1:N)
-      Item.hasMany(models.option, { foreignKey: "item_Id" });
+      Item.hasMany(models.Option, { foreignKey: "item_Id" });
       // item : order_item (1:N)
-      Item.hasMany(models.order_item, { foreignKey: "item_Id" });
+      Item.hasMany(models.OrderItem, { foreignKey: "item_Id" });
       // item : item_order_customer(1:1)
-      Item.hasOne(models.order_item, { foreignKey: "item_Id" });
+      Item.hasOne(models.ItemOrderCustomer, { foreignKey: "item_Id" });
     }
   }
   Item.init(
@@ -43,5 +43,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Item;
 };
-
-module.exports = item;

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   ItemOrderCustomer.init(
     {
       item_id: {
@@ -33,5 +34,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return ItemOrderCustomer;
 };
-
-module.exports = item_order_customer;

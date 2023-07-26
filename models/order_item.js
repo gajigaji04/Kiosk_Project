@@ -37,5 +37,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return OrderItem;
 };
-
-module.exports = order_item;

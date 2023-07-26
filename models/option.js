@@ -32,5 +32,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Option;
 };
-
-module.exports = option;
