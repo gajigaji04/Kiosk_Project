@@ -8,7 +8,16 @@
 
 # API 명세서
 
-## 상품 관리
+## item(상품 관리)
 
 상품 추가:
 /api/addProduct
+
+상품 조회:
+/api/getProduct
+
+상품 삭제:
+/api/deleteProduct/:ProductId
+
+상품 수정:
+/api/putProduct/:ProductId

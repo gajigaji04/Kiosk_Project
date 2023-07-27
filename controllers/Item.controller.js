@@ -8,7 +8,7 @@ const productService = new ProductService();
 async function addProduct(req, res) {
   const { name, price, type } = req.body;
 
-  // Validation and error handling code...
+  // V유효성 검사 및 오류 처리 코드
 
   try {
     const newProduct = await productService.addProduct(name, price, type);
@@ -26,6 +26,25 @@ async function addProduct(req, res) {
 
 module.exports = {
   addProduct,
+};
+
+// 상품 조회
+router.get("/api/getProduct", async (req, res) => {
+  try {
+    const products = await Products.findAll({
+      attributes: ["name", "price", "type"],
+      order: [["createdAt", "DESC"]],
+    });
+
+    return res.status(200).json({ data: products });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "서버 오류" });
+  }
+});
+
+module.exports = {
+  getProduct,
 };
 
 module.exports = itemController;
