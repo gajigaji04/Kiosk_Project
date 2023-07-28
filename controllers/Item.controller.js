@@ -1,5 +1,6 @@
 const { where } = require("sequelize");
 const { item } = require("../models");
+const router = require("../routes/option.route");
 const itemService = require("../services/Item.service");
 
 const productService = new ProductService();
@@ -11,7 +12,7 @@ async function addProduct(req, res) {
   // 유효성 검사 및 오류 처리 코드
 
   try {
-    const newProduct = await productService.addProduct(name, price, type);
+    const newProduct = await itemService.addProduct(name, price, type);
     return res.status(201).json({
       message: "상품이 성공적으로 추가되었습니다.",
       product: newProduct,
@@ -24,47 +25,44 @@ async function addProduct(req, res) {
   }
 }
 
+// 상품 삭제
+async function deleteProduct(req, res) {
+  const { id } = req.params;
+
+  try {
+    const result = await itemService.deleteProduct(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ errorMessage: "상품 삭제에 실패하였습니다." });
+  }
+}
+
+// 상품 삭제 확인
+async function confirmDelete(req, res) {
+  const { id, answer } = req.body;
+
+  if (answer === "예") {
+    try {
+      const result = await itemService.confirmDelete(id);
+      return res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ errorMessage: "상품 삭제에 실패하였습니다." });
+    }
+  } else {
+    return res.status(200).json({ message: "상품 삭제를 취소하였습니다." });
+  }
+}
+
 module.exports = {
   addProduct,
-};
-
-// 상품 조회
-router.get("/api/getProduct", async (req, res) => {
-  try {
-    const products = await Products.findAll({
-      attributes: ["name", "price", "type"],
-      order: [["createdAt", "DESC"]],
-    });
-
-    return res.status(200).json({ data: products });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "서버 오류" });
-  }
-});
-
-module.exports = {
-  getProduct,
-};
-
-// 상품 조회(타입별)
-router.get("/api/getProductByType/:type", async (req, res) => {
-  try {
-    const { type } = req.params;
-    const products = await Products.findAll({
-      attributes: ["name", "price", "type"],
-      where: { type },
-    });
-
-    return res.status(200).json({ data: products });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "서버 오류" });
-  }
-});
-
-module.exports = {
-  getProductByType,
+  deleteProduct,
+  confirmDelete,
 };
 
 module.exports = itemController;

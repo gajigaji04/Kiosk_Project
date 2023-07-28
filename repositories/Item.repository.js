@@ -12,20 +12,34 @@ class ItemRepository {
     return createItemData;
   };
 
-  // 상품 조회
-  findAllItem = async () => {
+  // 모든 상품 조회
+  findAllItems = async () => {
     const items = await Item.findAll();
-    return items; // 조회된 상품 목록을 반환하도록 수정
+    return items;
   };
 
-  // 상품 조회(타입별)
-  findAllItem = async () => {
-    const items = await Item.findAll();
-    where: {
-      type;
-    }
-    return items; // 조회된 상품 목록을 반환하도록 수정
+  // 타입별 상품 조회
+  findItemsByType = async (type) => {
+    const items = await Item.findAll({
+      where: {
+        type: type,
+      },
+    });
+    return items;
+  };
+
+  // 상품 삭제
+  findItemById = async (id) => {
+    return Item.findOne({
+      where: { id },
+    });
+  };
+
+  deleteItem = async (id) => {
+    return Item.destroy({
+      where: { id },
+    });
   };
 }
 
-module.exports = ItemRepository;
+module.exports = new ItemRepository();

@@ -13,6 +13,8 @@ class ItemRouter {
       "/getProductByType/:type",
       this.getProductByType.bind(this)
     );
+    this.router.delete("/deleteProduct/:id", this.deleteProduct.bind(this));
+    this.router.put("/putProduct/:id", this.putProduct.bind(this));
   }
 
   async addProduct(req, res) {
@@ -91,6 +93,107 @@ class ItemRouter {
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "서버 오류" });
+    }
+  }
+
+  // 상품 삭제
+  async deleteProduct(req, res) {
+    const { id } = req.params;
+
+    try {
+      const product = await Item.findOne({
+        where: { id },
+      });
+
+      if (!product) {
+        return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
+      }
+
+      if (product.amount > 0) {
+        // 제품의 양이 0보다 크면 확인을 요청
+        return res
+          .status(200)
+          .json({ message: "현재 수량이 남아있습니다. 삭제하시겠습니까?" });
+      } else {
+        //상품의 양이 0 또는 마이너스인 경우 즉시 상품을 삭제
+        await product.destroy();
+        return res.status(200).json({ message: "상품 삭제를 완료하였습니다." });
+      }
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ errorMessage: "상품 삭제에 실패하였습니다." });
+    }
+  }
+
+  // 2차 API (user의 응답을 처리함)
+  async confirmDelete(req, res) {
+    const { id, answer } = req.body;
+
+    if (answer === "예" || answer === "네") {
+      try {
+        const product = await Item.findOne({
+          where: { id },
+        });
+
+        if (!product) {
+          return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
+        }
+
+        // 상품 삭제 실행
+        await product.destroy();
+        return res.status(200).json({ message: "상품 삭제를 완료하였습니다." });
+      } catch (error) {
+        console.error(error);
+        return res
+          .status(500)
+          .json({ errorMessage: "상품 삭제에 실패하였습니다." });
+      }
+    } else {
+      // user가 '예'가 아닌 다른 것으로 응답할 경우 제품을 유지함
+      return res.status(200).json({ message: "상품 삭제를 취소하였습니다." });
+    }
+  }
+
+  // 상품 수정
+  async putProduct(req, res) {
+    const { id } = req.params;
+    const { name, price, type } = req.body;
+
+    try {
+      const product = await Item.findOne({
+        where: { id },
+      });
+
+      if (!product) {
+        return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
+      }
+
+      // 빈칸일 경우 ‘이름을 입력해주세요’ 메세지 반환
+      if (!name || !price || !type) {
+        return res.status(400).json({ errorMessage: "이름을 입력해주세요." });
+      }
+
+      // 음수일 경우 ‘알맞은 가격을 입력해주세요’ 에러메시지 반환
+      if (price < 0) {
+        return res
+          .status(400)
+          .json({ errorMessage: "알맞은 가격을 입력해주세요." });
+      }
+
+      // 상품 정보 업데이트
+      product.name = name;
+      product.price = price;
+      product.type = type;
+      await product.save();
+
+      return res.status(200).json({ message: "상품 수정을 완료하였습니다." });
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ errorMessage: "상품 수정에 실패하였습니다." });
     }
   }
 }
