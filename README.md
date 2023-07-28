@@ -25,3 +25,11 @@
 
 상품 수정:
 /api/putProduct/:ProductId
+
+## order_item(상품 발주)
+
+상품 발주:
+/api/addOrder/:productId
+
+발주 상태 수정:
+/api/putOrder/:productId/

@@ -1,10 +1,11 @@
+// app.js
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
 // Import your routers
 const optionRouter = require("./routes/option.route");
 const itemRouter = require("./routes/item.route");
-const order_itemRouter = require("./routes/order_item.route");
+const orderItemRouter = require("./routes/order_item.route");
 const item_order_customerRouter = require("./routes/item_order_customer.route");
 const order_customerRouter = require("./routes/order_customer.route");
 
@@ -26,7 +27,7 @@ class Server {
     this.app.use("/api", [
       optionRouter,
       itemRouter,
-      order_itemRouter,
+      orderItemRouter,
       item_order_customerRouter,
       order_customerRouter,
     ]);

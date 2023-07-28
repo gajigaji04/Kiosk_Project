@@ -1,24 +1,14 @@
 const express = require("express");
 const { order_item } = require("../models");
 const router = express.Router();
-const { Transaction } = require("sequelize");
+const OrderItemController = require("../controllers/order_item.controller"); // Correct the file path
 
-class OrderItemRouter {
-  constructor() {
-    this.router = express.Router();
-    this.router.post("/addOrder/:productId", this.addOrder.bind(this));
-  }
-
+class OrderItemController {
   async addOrder(req, res) {
     const { productId } = req.params;
 
     try {
-      // 기본 상태가 0인 데이터베이스에 주문 추가
-      const newOrder = await order_item.create({
-        productId: productId,
-        state: 0,
-      });
-
+      const newOrder = await OrderItemService.addOrder(productId);
       return res.status(201).json({
         message: "상품 발주 내역이 성공적으로 추가되었습니다.",
         order: newOrder,
@@ -32,4 +22,4 @@ class OrderItemRouter {
   }
 }
 
-module.exports = new OrderItemRouter().router;
+module.exports = new OrderItemController();
