@@ -106,6 +106,40 @@ class ProductService {
       return { message: "상품 삭제를 취소하였습니다." };
     }
   }
+
+  // 상품 수정
+  async putProduct(id, name, price, type) {
+    try {
+      const product = await Item.findOne({
+        where: { id },
+      });
+
+      if (!product) {
+        return { message: "상품을 찾을 수 없습니다." };
+      }
+
+      // 빈칸일 경우 ‘이름을 입력해주세요’ 메세지 반환
+      if (!name || !price || !type) {
+        return { errorMessage: "이름을 입력해주세요." };
+      }
+
+      // 음수일 경우 ‘알맞은 가격을 입력해주세요’ 에러메시지 반환
+      if (price < 0) {
+        return { errorMessage: "알맞은 가격을 입력해주세요." };
+      }
+
+      // 상품 정보 업데이트
+      product.name = name;
+      product.price = price;
+      product.type = type;
+      await product.save();
+
+      return { message: "상품 수정을 완료하였습니다." };
+    } catch (error) {
+      console.error(error);
+      return { errorMessage: "상품 수정에 실패하였습니다." };
+    }
+  }
 }
 
 module.exports = ItemService;

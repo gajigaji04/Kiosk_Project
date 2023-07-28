@@ -59,10 +59,26 @@ async function confirmDelete(req, res) {
   }
 }
 
+// 상품 수정
+async function putProduct(req, res) {
+  const { id } = req.params;
+
+  try {
+    const result = await itemService.putProduct(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ errorMessage: "상품 수정에 실패하였습니다." });
+  }
+}
+
 module.exports = {
   addProduct,
   deleteProduct,
   confirmDelete,
+  putProduct,
 };
 
 module.exports = itemController;
