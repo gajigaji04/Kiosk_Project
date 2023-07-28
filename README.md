@@ -16,6 +16,9 @@
 상품 조회:
 /api/getProduct
 
+상품 조회(타입별):
+/api/getProduct/Type
+
 상품 삭제:
 /api/deleteProduct/:ProductId
 

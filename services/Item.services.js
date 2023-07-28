@@ -27,13 +27,28 @@ class ProductService {
     return newProduct;
   }
 
-  // 상품 조회
-  // 리스트 조회
+  // 상품 리스트 조회
   async getProduct() {
     try {
       const products = await Products.findAll({
         attributes: ["name", "price", "type"],
         order: [["createdAt", "DESC"]],
+      });
+      console.log(products);
+
+      return products;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  // 상품 조회(타입별)
+  async getProductByType() {
+    try {
+      const products = await Products.findAll({
+        attributes: ["name", "price", "type"],
+        where: { type },
       });
       console.log(products);
 

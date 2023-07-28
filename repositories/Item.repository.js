@@ -17,6 +17,15 @@ class ItemRepository {
     const items = await Item.findAll();
     return items; // 조회된 상품 목록을 반환하도록 수정
   };
+
+  // 상품 조회(타입별)
+  findAllItem = async () => {
+    const items = await Item.findAll();
+    where: {
+      type;
+    }
+    return items; // 조회된 상품 목록을 반환하도록 수정
+  };
 }
 
 module.exports = ItemRepository;

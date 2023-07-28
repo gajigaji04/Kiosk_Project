@@ -1,6 +1,13 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
+// Import your routers
+const optionRouter = require("./routes/option.route");
+const itemRouter = require("./routes/item.route");
+const order_itemRouter = require("./routes/order_item.route");
+const item_order_customerRouter = require("./routes/item_order_customer.route");
+const order_customerRouter = require("./routes/order_customer.route");
+
 class Server {
   constructor(port) {
     this.port = port;
@@ -15,15 +22,10 @@ class Server {
   }
 
   setupRoutes() {
-    const optionRouter = require("./routes/option.route");
-    const itemRouter = require("./routes/Item.route").router;
-    const order_itemRouter = require("./routes/order_item.route");
-    const item_order_customerRouter = require("./routes/item_order_customer.route");
-    const order_customerRouter = require("./routes/order_customer.route");
-
+    // Use the imported routers as middleware
     this.app.use("/api", [
       optionRouter,
-      itemRouter, // Use itemRouter directly as middleware
+      itemRouter,
       order_itemRouter,
       item_order_customerRouter,
       order_customerRouter,
