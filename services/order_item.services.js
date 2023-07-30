@@ -24,7 +24,6 @@ class OrderItemController {
   }
 
   // 상품 발주 수정
-
   async markOrderAsCompleted(req, res) {
     const { orderItemId } = req.params;
 
