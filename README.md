@@ -21,7 +21,7 @@
 
 상품 삭제:
 /api/deleteProduct/:ProductId
-(답볍 오류 수정 바람)
+(답변(answer) 오류 수정 바람)
 
 상품 수정:
 /api/putProduct/:ProductId
