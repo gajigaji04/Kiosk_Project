@@ -3,14 +3,9 @@ const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class OrderItem extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       // order_item : item (1:N)
-      OrderItem.hasMany(models.item, { foreignKey: "order_item_Id" });
+      OrderItem.hasMany(models.Item, { foreignKey: "order_item_Id" });
     }
   }
 
@@ -31,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "order_item",
+      modelName: "OrderItem",
+      tableName: "order_items", // 사용자 지정 테이블 이름 지정
     }
   );
 

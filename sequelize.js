@@ -1,16 +1,11 @@
-// sequelize.js
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("database_name", "username", "password", {
-  // Your database configuration options here
+  // 데이터베이스 구성 옵션
 });
 
 const order_item = require("../models/order_item")(sequelize);
 
-// Define model relationships or associations here, if any
-// For example:
-// order_item.belongsTo(someOtherModel);
-
-// Sync the model with the database
+// 모델을 데이터베이스와 동기화
 (async () => {
   try {
     await sequelize.sync();
