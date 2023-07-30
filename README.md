@@ -32,4 +32,4 @@
 /api/addOrder/:productId
 
 발주 상태 수정:
-/api/putOrder/:productId/
+/api/putOrder/:productId
