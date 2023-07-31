@@ -2,7 +2,7 @@
 
 # ERD
 
-![image](https://github.com/gajigaji04/Kiosk_Project/assets/132813209/ce7549c1-6032-44ef-9480-fde1e41f6902)
+![image](https://github.com/gajigaji04/Kiosk_Project/assets/132813209/125acb4d-3b6a-4a4d-9c2f-6fa95c9dff8b)
 
 (출처: 스파르타 kiosk 과제 진행용 참고)
 
@@ -37,6 +37,7 @@
 
 발주 상태 수정:
 /api/putOrder/:productId
+<<<<<<< HEAD
 (발주 상태 중 서버 오류 발생)
 
 ## 주문 관리
@@ -50,3 +51,5 @@
 
 상품 주문 고객 반환:
 /api/itemOrderCustomer
+=======
+>>>>>>> ffcaaaab22d975eb0664d1f30a4044c2524a8f38
