@@ -3,7 +3,6 @@ const { Item } = require("../models");
 const router = express.Router();
 const { Transaction } = require("sequelize");
 
-// class 메소드
 class ItemRouter {
   constructor() {
     this.router = express.Router();
@@ -136,6 +135,13 @@ class ItemRouter {
         const product = await Item.findOne({
           where: { id },
         });
+        console.log(product);
+
+        if (!orderItem) {
+          throw new Error(
+            "주문 항목을 찾을 수 없거나 상태가 '보류 중'이 아닙니다"
+          );
+        }
 
         if (!product) {
           return res.status(404).json({ message: "상품을 찾을 수 없습니다." });

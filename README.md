@@ -8,7 +8,9 @@
 
 # API 명세서
 
-## item(상품 관리)
+## 상품 관리
+
+### item
 
 상품 추가:
 /api/addProduct
@@ -26,10 +28,25 @@
 상품 수정:
 /api/putProduct/:ProductId
 
-## order_item(상품 발주)
+## 상품 발주
+
+### order_item
 
 상품 발주:
 /api/addOrder/:productId
 
 발주 상태 수정:
-/api/putOrder/:productId/
+/api/putOrder/:productId
+(발주 상태 중 서버 오류 발생)
+
+## 주문 관리
+
+### order_customer
+
+상품 주문 ID 발급:
+/api/orderCustomer
+
+### item_order_customer
+
+상품 주문 고객 반환:
+/api/itemOrderCustomer
