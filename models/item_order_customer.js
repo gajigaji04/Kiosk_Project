@@ -4,9 +4,11 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ItemOrderCustomer extends Model {
     static associate(models) {
-      // item_order_customer : item (1:1)
-      ItemOrderCustomer.hasOne(models.Item, {
-        foreignKey: "item_order_customer_Id",
+      // item_order_customer : item (다대다)
+      ItemOrderCustomer.belongsToMany(models.Item, {
+        through: "ItemOrder", // 중간 테이블 이름을 지정해야 합니다.
+        foreignKey: "item_order_customer_id", // 중간 테이블의 주문 항목 외래 키
+        otherKey: "item_id", // 중간 테이블의 상품 외래 키
       });
     }
   }
@@ -19,10 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       order_customer_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false, 
       },
       amount: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

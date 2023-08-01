@@ -6,7 +6,7 @@ const { Transaction } = require("sequelize");
 class OrderCustomerRouter {
   constructor() {
     this.router = express.Router();
-    // 상품 주문
+    // 상품 주문 ID 발급
     this.router.post("/orderCustomer", this.orderCustomer.bind(this));
     // 상품 주문 수정
     this.router.post("/putCustomer/:orderCustomerId", this.putCustomer.bind(this));
@@ -20,7 +20,7 @@ class OrderCustomerRouter {
     return orderID;
   }
 
-  // 고객 주문 처리 방법
+  // 상품 주문 ID 발급
   async orderCustomer(req, res) {
     // 주문 처리 로직
     const orderID = this.generateOrderID();
@@ -78,48 +78,50 @@ class OrderCustomerRouter {
   // 상품 주문 수정
   async putCustomer(req, res) {
     const { orderCustomerId } = req.params;
-
+  
     const t = await sequelize.transaction();
-
+  
     try {
       const order = await OrderCustomer.findOne({
         where: { id: orderCustomerId },
         transaction: t,
         include: { model: Item },
       });
-
+  
       if (!order) {
         await t.rollback();
         return res.status(404).json({ errorMessage: "주문을 찾을 수 없습니다." });
       }
-
-      // 주문이 이미 완료된 경우(상태 === true) 오류 메시지를 반환합니다.
+  
+      // 주문이 이미 완료된 경우(상태 === true) 오류 메시지를 반환
       if (order.state === true) {
         await t.rollback();
         return res
           .status(400)
           .json({ errorMessage: "완료된 주문은 취소할 수 없습니다." });
       }
-
+  
       // 상태를 true로 업데이트하여 주문을 완료된 것으로 표시
       order.state = true;
       await order.save({ transaction: t });
-
+  
       // 주문 수량만큼 재고 수량 줄이기
       for (const item of order.Items) {
         const itemOrder = await ItemOrderCustomer.findOne({
           where: { orderId: order.id, itemId: item.id },
           transaction: t,
         });
-
+  
         if (itemOrder) {
-          item.amount -= itemOrder.quantity;
+          // itemOrder에서 수량 정보를 가져와서 재고 수량을 감소시킴
+          const quantity = itemOrder.amount;
+          item.amount -= quantity;
           await item.save({ transaction: t });
         }
       }
-
+  
       await t.commit();
-
+  
       return res.status(200).json({
         orderID: order.orderID,
         totalPrice: order.totalPrice,
@@ -130,7 +132,7 @@ class OrderCustomerRouter {
       await t.rollback();
       return res.status(500).json({ errorMessage: "주문 수정에 실패했습니다." });
     }
-  }
+  }  
 }
 
 module.exports = new OrderCustomerRouter().router;

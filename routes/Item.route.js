@@ -6,13 +6,18 @@ const { Transaction } = require("sequelize");
 class ItemRouter {
   constructor() {
     this.router = express.Router();
+    // 상품 추가
     this.router.post("/addProduct", this.addProduct.bind(this));
+    // 상품 조회
     this.router.get("/getProduct", this.getProduct.bind(this));
+    // 상품 타입별 조회
     this.router.get(
       "/getProductByType/:type",
       this.getProductByType.bind(this)
     );
+    // 상품 삭제
     this.router.delete("/deleteProduct/:id", this.deleteProduct.bind(this));
+    // 상품 수정
     this.router.put("/putProduct/:id", this.putProduct.bind(this));
   }
 

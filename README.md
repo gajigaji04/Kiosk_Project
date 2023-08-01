@@ -37,7 +37,6 @@
 
 발주 상태 수정:
 /api/putOrder/:productId
-<<<<<<< HEAD
 (발주 상태 중 서버 오류 발생)
 
 ## 주문 관리
@@ -51,5 +50,4 @@
 
 상품 주문 고객 반환:
 /api/itemOrderCustomer
-=======
->>>>>>> ffcaaaab22d975eb0664d1f30a4044c2524a8f38
+
