@@ -3,8 +3,6 @@ const { item } = require("../models");
 const router = require("../routes/option.route");
 const itemService = require("../services/Item.service");
 
-const productService = new ProductService();
-
 // 상품 추가
 async function addProduct(req, res) {
   const { name, price, type } = req.body;

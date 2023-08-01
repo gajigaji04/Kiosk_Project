@@ -2,7 +2,7 @@
 
 # ERD
 
-![image](https://github.com/gajigaji04/Kiosk_Project/assets/132813209/125acb4d-3b6a-4a4d-9c2f-6fa95c9dff8b)
+image.png
 
 (출처: 스파르타 kiosk 과제 진행용 참고)
 
@@ -50,4 +50,11 @@
 
 상품 주문 고객 반환:
 /api/itemOrderCustomer
+
+### option
+상품 주문 옵션 추가:
+/api/addOption
+
+상품 주문 옵션 수정:
+/api/putOption/:optionId
 
