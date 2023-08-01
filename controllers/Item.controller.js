@@ -1,6 +1,5 @@
-const { where } = require("sequelize");
-const { item } = require("../models");
-const router = require("../routes/option.route");
+const express = require("express");
+const router = express.Router();
 const itemService = require("../services/Item.service");
 
 // 상품 추가
@@ -79,4 +78,4 @@ module.exports = {
   putProduct,
 };
 
-module.exports = itemController;
+module.exports = itemController;module.exports = new ItemController();

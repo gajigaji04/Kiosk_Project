@@ -1,5 +1,5 @@
 const express = require("express");
-const { Item } = require("../models");
+const { Item_order_customer } = require("../models");
 const router = express.Router();
 const { Transaction } = require("sequelize");
 
@@ -7,7 +7,7 @@ class ItemRouter {
   constructor() {
     this.router = express.Router();
     // 상품 주문 고객 반환
-    this.router.post("/itemOrderCustomer", this.itemOrderCustomer.bind(this));
+    this.router.post("/addOrderCustomer", this.itemOrderCustomer.bind(this));
   }
 
   generateOrderID() {
@@ -18,7 +18,7 @@ class ItemRouter {
   }
 
   // 상품 주문 고객 반환
-async itemOrderCustomer(req, res) {
+async addOrderCustomer(req, res) {
   const orderID = this.generateOrderID();
   console.log("생성된 주문 ID:", orderID);
 

@@ -49,7 +49,7 @@ image.png
 ### item_order_customer
 
 상품 주문 고객 반환:
-/api/itemOrderCustomer
+/api/addOrderCustomer
 
 ### option
 상품 주문 옵션 추가:

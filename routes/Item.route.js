@@ -17,6 +17,8 @@ class ItemRouter {
     );
     // 상품 삭제
     this.router.delete("/deleteProduct/:id", this.deleteProduct.bind(this));
+    // 상품 삭제 확인
+    router.post("/confirmDelete", itemController.confirmDelete);
     // 상품 수정
     this.router.put("/putProduct/:id", this.putProduct.bind(this));
   }
@@ -60,7 +62,7 @@ class ItemRouter {
           });
         }
       }
-      
+
       // 상품이 성공적으로 추가되었으므로 amount를 1로 증가시킴
       newProduct.amount += 1;
       await newProduct.save();

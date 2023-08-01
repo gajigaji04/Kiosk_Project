@@ -1,6 +1,6 @@
 const express = require("express");
 const { OrderItem, Item, sequelize } = require("../models");
-const OrderItemController = require("../controllers/order_item.controller"); // Correct the file path
+const OrderItemController = require("../controllers/order_item.controller");
 const router = express.Router();
 
 class OrderItemRouter {

@@ -1,7 +1,5 @@
-const express = require("express");
-const { OrderItem, Item, sequelize } = require("../models");
-const router = express.Router();
-const OrderItemRepository = require("../repositories/order_item.repository"); // Correct the file path
+const OptionService = require("../services/option.service");
+const optionService = new OptionService();
 
 class OrderItemController {
   // 상품 발주
@@ -41,14 +39,14 @@ class OrderItemController {
           transaction,
         });
 
-        console.log("orderItem:", orderItem); // Log the retrieved orderItem
+        console.log("orderItem:", orderItem);
 
         if (!orderItem) {
-          throw new Error("Order item not found or status is not 'Pending'");
+          throw new Error("주문 항목을 찾을 수 없거나 상태가 '보류 중'이 아닙니다");
         }
 
         // 주문 상태를 "완료됨"으로 업데이트
-        orderItem.state = "Completed"; // Ordered or Pending → Completed
+        orderItem.state = "Completed"; // 주문되었거나 보류 중인 → 완료
         await orderItem.save({ transaction });
 
         // 제품의 양을 주문한 수량만큼 줄임
@@ -87,4 +85,9 @@ class OrderItemController {
   }
 }
 
-module.exports = new OrderItemController();
+module.exports = {
+  addOrder,
+  putOrder,
+};
+
+module.exports = orderItemController;module.exports = new OrderItemController();
