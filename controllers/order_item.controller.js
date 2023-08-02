@@ -1,5 +1,5 @@
 const { where } = require("sequelize");
-const orderItemService = require("../services/order_item.service");
+const orderItemService = require("../services/order_item.services");
 
 class OrderItemController {
   // 상품 발주

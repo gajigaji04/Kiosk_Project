@@ -10,7 +10,7 @@ class OrderItemRepository {
   }
 
   // 상품 발주 수정
-  async createOrderItem(productId) {
+  async updateOrderItem(productId) {
     return await order_item.create({
       item_id: productId,
       state: "0",
@@ -19,4 +19,4 @@ class OrderItemRepository {
   }
 }
 
-module.exports = order_itemRepository;
+module.exports = OrderItemRepository;
