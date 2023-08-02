@@ -9,6 +9,7 @@ class OptionService {
     return orderID;
   }
 
+  // 상품 주문 옵션 추가
   async addOption(req, res) {
     const orderID = this.generateOrderID();
     console.log("생성된 주문 ID:", orderID);

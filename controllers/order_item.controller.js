@@ -92,4 +92,6 @@ module.exports = {
   putOrder,
 };
 
+const itemOrderCustomerController = new ItemOrderCustomerController();
+
 module.exports = orderItemController;

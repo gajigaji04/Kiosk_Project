@@ -53,20 +53,6 @@ class ItemRepository {
       where: { id },
     });
 
-    if (!item) {
-      return { message: "상품을 찾을 수 없습니다." };
-    }
-
-    // 빈칸일 경우 에러메세지 반환
-    if (!name || !price || !type) {
-      return { errorMessage: "이름을 입력해주세요." };
-    }
-
-    // 음수일 경우 에러메시지 반환
-    if (price < 0) {
-      return { errorMessage: "알맞은 가격을 입력해주세요." };
-    }
-
     // 상품 정보 업데이트
     item.name = name;
     item.price = price;

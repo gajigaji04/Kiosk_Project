@@ -18,7 +18,7 @@ class ItemRouter {
     // 상품 삭제
     this.router.delete("/deleteProduct/:id", this.deleteProduct.bind(this));
     // 상품 삭제 확인
-    router.post("/confirmDelete", itemController.confirmDelete);
+    this.router.post("/confirmDelete", this.confirmDelete.confirmDelete);
     // 상품 수정
     this.router.put("/putProduct/:id", this.putProduct.bind(this));
   }
@@ -26,12 +26,12 @@ class ItemRouter {
   // 상품 추가
   async addProduct(req, res) {
     const { name, price, type, options } = req.body;
-  
+
     // 이름, 가격이 없을 경우 ‘{name}을 입력해주세요’라는 메세지 반환
     if (!name || !price) {
       return res.status(400).json({ errorMessage: "{name}을 입력해주세요." });
     }
-  
+
     try {
       // 알맞은 타입이 아닐 경우 ‘알맞은 타입을 지정해주세요’라는 메세지 반환
       const validTypes = ["coffee", "juice", "food"];
@@ -40,18 +40,18 @@ class ItemRouter {
           .status(400)
           .json({ errorMessage: "알맞은 타입을 지정해주세요." });
       }
-  
+
       // 상품 생성
       const newProduct = await Item.create({
         name,
         price,
         type,
       });
-  
+
       // amount를 0으로 고정 (상품 발주시 amount 증가)
       newProduct.amount = 0;
       await newProduct.save();
-  
+
       // 옵션을 추가로 받아와서 상품과 연결
       if (options && options.length > 0) {
         for (const option of options) {
@@ -66,14 +66,16 @@ class ItemRouter {
       // 상품이 성공적으로 추가되었으므로 amount를 1로 증가시킴
       newProduct.amount += 1;
       await newProduct.save();
-  
+
       return res.status(201).json({
         message: "상품이 성공적으로 추가되었습니다.",
         product: newProduct,
       });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ errorMessage: "서버 오류가 발생하였습니다." });
+      return res
+        .status(500)
+        .json({ errorMessage: "서버 오류가 발생하였습니다." });
     }
   }
 
@@ -177,7 +179,7 @@ class ItemRouter {
     }
   }
 
-  // 상품 수정
+  // 상품 추가 수정
   async putProduct(req, res) {
     const { id } = req.params;
     const { name, price, type } = req.body;

@@ -27,15 +27,13 @@ class OptionRouter {
     const t = await sequelize.transaction();
 
     try {
-      // Calculate totalPrice based on the items and options selected
       let totalPrice = 0;
-      // ... calculate totalPrice here based on itemIds and options ...
 
       // 제공된 옵션을 사용하여 주문 작성
       const orderDetails = await OrderCustomer.create(
         {
           orderID,
-          totalPrice, // Make sure totalPrice is defined and calculated
+          totalPrice,
           state: false,
         },
         { transaction: t }
