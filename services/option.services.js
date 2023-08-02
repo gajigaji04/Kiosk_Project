@@ -1,5 +1,5 @@
 const OptionRepository = require("../repositories/option.repository");
-const OptionController = require("../controllers/option.controller");
+const OptionService = require("../controllers/option.controller");
 
 class OptionService {
   generateOrderID() {

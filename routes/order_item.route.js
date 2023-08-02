@@ -18,11 +18,11 @@ class OrderItemRouter {
     const { productId } = req.params;
 
     try {
-      // 기본 상태가 0인 데이터베이스에 주문 추가
+      // 기본 상태가 'Pending'인 데이터베이스에 주문 추가
       const newOrder = await OrderItem.create({
         item_id: productId,
-        state: "0", // 모델 정의를 기반으로 STRING 유형 상태를 가정
-        amount: "1", // 여기에 금액 값(예: 1)을 제공
+        state: "Pending",
+        amount: "1",
       });
 
       return res.status(201).json({

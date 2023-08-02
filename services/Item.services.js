@@ -1,5 +1,5 @@
 const ItemRepository = require("../repositories/item.repository");
-const ItemController = require("../controllers/itme.controller");
+const ItemService = require("../controllers/item.controller");
 
 class ProductService {
   constructor() {

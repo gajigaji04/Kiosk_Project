@@ -1,5 +1,5 @@
 const orderItemRepository = require("../repositories/order_item.repository");
-const orderItemController = require("../controllers/order_item.controller");
+const orderItemService = require("../controllers/order_item.controller");
 
 class OrderItemController {
   // 상품 발주

@@ -1,5 +1,5 @@
 const orderCustomerRepository = require("../repositories/order_customer.repository");
-const orderCustomerController = require("../controllers/order_customer.controller");
+const orderCustomerService = require("../controllers/order_customer.controller");
 
 class orderCustomerService {
   // 상품 주문 ID 발급

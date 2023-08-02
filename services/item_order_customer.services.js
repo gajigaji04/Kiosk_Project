@@ -1,5 +1,5 @@
 const itemOrderCustomerRepository = require("../repositories/item_order_customer.repository");
-const itemOrderCustomerController = require("../controllers/item_order_customer.controller");
+const itemOrderCustomerService = require("../controllers/item_order_customer.controller");
 
 // 상품 주문 고객 반환
 async function addOrderForCustomer(requestData) {

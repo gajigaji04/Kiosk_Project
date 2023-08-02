@@ -1,5 +1,6 @@
 const { where } = require("sequelize");
 const orderItemService = require("../services/order_item.services");
+const orderItemController = require("../controllers/order_item.controller"); // Add this line
 
 class OrderItemController {
   // 상품 발주
@@ -88,10 +89,6 @@ class OrderItemController {
 }
 
 module.exports = {
-  addOrder,
-  putOrder,
+  addOrder: orderItemController.addOrder,
+  putOrder: orderItemController.putOrder,
 };
-
-const itemOrderCustomerController = new ItemOrderCustomerController();
-
-module.exports = orderItemController;
