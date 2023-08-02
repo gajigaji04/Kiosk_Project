@@ -1,4 +1,5 @@
-const ItemRepository = require("../../repositories/Item.repository");
+const ItemRepository = require("../repositories/item.repository");
+const ItemController = require("../controllers/itme.controller");
 
 class ProductService {
   constructor() {
@@ -10,7 +11,11 @@ class ProductService {
     // 유효성 검사 및 오류 처리 코드
 
     try {
-      const newProduct = await this.itemRepository.createItem(name, price, type);
+      const newProduct = await this.itemRepository.createItem(
+        name,
+        price,
+        type
+      );
 
       // amount를 0으로 고정 (상품 발주시 amount 증가)
       newProduct.amount = 0;
@@ -109,7 +114,12 @@ class ProductService {
   // 상품 수정
   async putProduct(id, name, price, type) {
     try {
-      const result = await this.itemRepository.updateItem(id, name, price, type);
+      const result = await this.itemRepository.updateItem(
+        id,
+        name,
+        price,
+        type
+      );
       return result;
     } catch (error) {
       console.error(error);
@@ -118,4 +128,4 @@ class ProductService {
   }
 }
 
-module.exports = ProductService;
+module.exports = itemService;

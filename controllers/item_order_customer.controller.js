@@ -20,7 +20,7 @@ module.exports = {
 };
 
 module.exports = {
-    addOrderCustomer,
-  };
+  addOrderCustomer,
+};
 
-module.exports = itemOrderCustomerController;module.exports = new itemOrderCustomerController();
+module.exports = itemOrderCustomerController;

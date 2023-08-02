@@ -19,4 +19,4 @@ class OrderItemRepository {
   }
 }
 
-module.exports = new OrderItemRepository();
+module.exports = order_itemRepository;

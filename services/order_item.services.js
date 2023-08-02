@@ -1,8 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const Order = require("../controllers/order_item.controller");
-const order_item = require("../sequelize");
-const OrderItemService = require("../services/order_item.service"); // Correct the import statement
+const orderItemRepository = require("../repositories/order_item.repository");
+const orderItemController = require("../controllers/order_item.controller");
 
 class OrderItemController {
   // 상품 발주
@@ -84,4 +81,4 @@ class OrderItemController {
   }
 }
 
-module.exports = new OrderItemController();
+module.exports = orderItemService;

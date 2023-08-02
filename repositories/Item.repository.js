@@ -77,4 +77,4 @@ class ItemRepository {
   };
 }
 
-module.exports = new ItemRepository();
+module.exports = itemRepository;

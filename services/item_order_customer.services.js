@@ -1,3 +1,4 @@
-const item_order_customerRepository = require("../repositories/item_order_customer.repository");
+const itemOrderCustomerRepository = require("../repositories/item_order_customer.repository");
+const itemOrderCustomerController = require("../controllers/item_order_customer.controller");
 
-module.exports = item_order_customerService;
+module.exports = itemOrderCustomerService;

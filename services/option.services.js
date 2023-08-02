@@ -1,5 +1,5 @@
-const { OrderOption, OrderCustomer, sequelize } = require("../models");
-const { Transaction } = require("sequelize");
+const OptionRepository = require("../repositories/option.repository");
+const OptionController = require("../controllers/option.controller");
 
 class OptionService {
   generateOrderID() {

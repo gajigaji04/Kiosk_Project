@@ -1,5 +1,5 @@
-const OptionService = require("../services/option.service");
-const optionService = new OptionService();
+const { where } = require("sequelize");
+const orderItemService = require("../services/order_item.service");
 
 class OrderItemController {
   // 상품 발주
@@ -42,7 +42,9 @@ class OrderItemController {
         console.log("orderItem:", orderItem);
 
         if (!orderItem) {
-          throw new Error("주문 항목을 찾을 수 없거나 상태가 '보류 중'이 아닙니다");
+          throw new Error(
+            "주문 항목을 찾을 수 없거나 상태가 '보류 중'이 아닙니다"
+          );
         }
 
         // 주문 상태를 "완료됨"으로 업데이트
@@ -90,4 +92,4 @@ module.exports = {
   putOrder,
 };
 
-module.exports = orderItemController;module.exports = new OrderItemController();
+module.exports = orderItemController;

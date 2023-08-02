@@ -1,6 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const itemService = require("../services/Item.service");
+const { where } = require("sequelize");
+const itemService = require("../services/item.service");
 
 // 상품 추가
 async function addProduct(req, res) {
@@ -78,4 +77,4 @@ module.exports = {
   putProduct,
 };
 
-module.exports = itemController;module.exports = new ItemController();
+module.exports = itemController;
