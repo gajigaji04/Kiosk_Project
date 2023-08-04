@@ -3,11 +3,16 @@ const { OrderOption, OrderCustomer, sequelize } = require("../models");
 const router = express.Router();
 const { Transaction } = require("sequelize");
 
+const { Option } = require("../models");
+
+let cachedOptions = [];
+
 class OptionRouter {
   constructor() {
     this.router = express.Router();
     // 상품 옵션 추가
     this.router.post("/addOption", this.addOption.bind(this));
+    this.initializeOptionCache(); // Call the function to initialize option cache when the server starts
   }
 
   generateOrderID() {
@@ -65,6 +70,25 @@ class OptionRouter {
       await t.rollback();
       return res.status(500).json({ errorMessage: "주문에 실패했습니다." });
     }
+  }
+
+  // 서버가 실행될때 DB에 option 데이터를 요청해 모두 서버 메모리에 캐싱
+  async initializeOptionCache() {
+    try {
+      // 데이터베이스에서 모든 옵션 데이터 검색
+      const options = await Option.findAll();
+
+      // 메모리의 옵션 캐시
+      cachedOptions = options;
+
+      console.log("옵션 데이터가 캐시되었습니다.");
+    } catch (error) {
+      console.error("옵션 데이터 캐싱 오류:", error);
+    }
+  }
+
+  getOptionsFromCache() {
+    return cachedOptions;
   }
 }
 

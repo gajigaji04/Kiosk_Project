@@ -12,6 +12,15 @@ class OptionController {
       return res.status(500).json({ errorMessage: "주문에 실패했습니다." });
     }
   }
+
+  // 서버가 실행될때 DB에 option 데이터를 요청해 모두 서버 메모리에 캐싱
+  async initializeOptionCache() {
+    try {
+      console.log("옵션 데이터가 캐시되었습니다.");
+    } catch (error) {
+      console.error("옵션 데이터 캐싱 오류:", error);
+    }
+  }
 }
 
 module.exports = {

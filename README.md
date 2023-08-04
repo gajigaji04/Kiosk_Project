@@ -36,7 +36,7 @@ image.png
 /api/addOrder/:productId
 
 발주 상태 수정:
-/api/putOrder/:productId
+/api/putOrder/1
 (발주 상태 중 서버 오류 발생)
 
 ## 주문 관리
@@ -52,9 +52,9 @@ image.png
 /api/addOrderCustomer
 
 ### option
+
 상품 주문 옵션 추가:
 /api/addOption
 
 상품 주문 옵션 수정:
 /api/putOption/:optionId
-

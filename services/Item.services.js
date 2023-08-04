@@ -120,6 +120,36 @@ class ProductService {
         price,
         type
       );
+
+      if (!product) {
+        return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
+      }
+
+      // 빈칸일 경우 ‘이름을 입력해주세요’ 메세지 반환
+      if (!name || !price || !type) {
+        return res.status(400).json({ errorMessage: "이름을 입력해주세요." });
+      }
+
+      // 음수일 경우 ‘알맞은 가격을 입력해주세요’ 에러메시지 반환
+      if (price < 0) {
+        return res
+          .status(400)
+          .json({ errorMessage: "알맞은 가격을 입력해주세요." });
+      }
+
+      // 옵션을 사용하여 총 가격 계산
+      let totalPrice = price;
+      if (options && Array.isArray(options)) {
+        options.forEach((option) => {
+          if (option.type === "extra_size") {
+            totalPrice += option.price;
+          } else if (option.type === "shot_addition") {
+            totalPrice += option.price;
+          }
+          // 다른 유형의 옵션에 대한 조건 추가
+        });
+      }
+
       return result;
     } catch (error) {
       console.error(error);

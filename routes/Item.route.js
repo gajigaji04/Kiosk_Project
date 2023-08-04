@@ -1,7 +1,19 @@
 const express = require("express");
-const { Item } = require("../models");
+const { Item, Option } = require("../models");
 const router = express.Router();
 const { Transaction } = require("sequelize");
+
+// 메모리 내 옵션 개체가 있다고 가정
+const optionsData = {
+  // 샘플 옵션 데이터
+  extra_size: {
+    price: 2.0,
+  },
+  shot_addition: {
+    price: 1.0,
+  },
+  // 필요에 따라 다른 옵션 유형 추가
+};
 
 class ItemRouter {
   constructor() {
@@ -87,7 +99,18 @@ class ItemRouter {
         order: [["createdAt", "DESC"]],
       });
 
-      return res.status(200).json({ data: products });
+      // 각 제품에 옵션 가져오기 및 첨부
+      const productsWithOptions = await Promise.all(
+        products.map(async (product) => {
+          const options = await ProductOption.findAll({
+            where: { itemId: product.id },
+            attributes: ["name", "value"],
+          });
+          return { ...product.toJSON(), options };
+        })
+      );
+
+      return res.status(200).json({ data: productsWithOptions });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "서버 오류" });
@@ -175,7 +198,7 @@ class ItemRouter {
   // 상품 추가 수정
   async putProduct(req, res) {
     const { id } = req.params;
-    const { name, price, type } = req.body;
+    const { name, price, type, options } = req.body;
 
     try {
       const product = await Item.findOne({
@@ -198,13 +221,30 @@ class ItemRouter {
           .json({ errorMessage: "알맞은 가격을 입력해주세요." });
       }
 
+      // Calculate the total price with options
+      let totalPrice = price;
+      if (options && Array.isArray(options)) {
+        options.forEach((option) => {
+          const optionData = optionsData[option.name];
+          if (optionData) {
+            totalPrice += optionData.price * option.quantity; // 각 옵션에 수량 필드가 있다고 가정
+          }
+        });
+      }
+
       // 상품 정보 업데이트
       product.name = name;
       product.price = price;
       product.type = type;
       await product.save();
 
-      return res.status(200).json({ message: "상품 수정을 완료하였습니다." });
+      // 주문 ID 및 계산된 총 가격 반환
+      const orderId = generateOrderId(); // 주문 ID를 생성하는 함수로 대체
+      return res.status(200).json({
+        message: "상품 수정을 완료하였습니다.",
+        orderId,
+        totalPrice,
+      });
     } catch (error) {
       console.error(error);
       return res
