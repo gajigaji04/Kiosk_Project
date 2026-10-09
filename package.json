@@ -1,15 +1,20 @@
 {
   "name": "kiosk_js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Express + Sequelize(MySQL) 기반 카페 키오스크 백엔드 API",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.6.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.5.2",

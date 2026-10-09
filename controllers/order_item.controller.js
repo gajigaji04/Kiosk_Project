@@ -1,5 +1,5 @@
 const { where } = require("sequelize");
-const orderItemService = require("../services/order_item.services");
+const orderItemService = require("../services/order_item.service");
 const orderItemController = require("../controllers/order_item.controller"); // Add this line
 
 class OrderItemController {

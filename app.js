@@ -1,4 +1,5 @@
 // app.js
+require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
@@ -40,5 +41,5 @@ class Server {
   }
 }
 
-const myServer = new Server(3000);
+const myServer = new Server(process.env.PORT || 3000);
 myServer.start();
